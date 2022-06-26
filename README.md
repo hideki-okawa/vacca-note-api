@@ -1,5 +1,5 @@
 # vacca-note-server
-![example workflow](https://github.com/Okaki030/vacca-note-server/actions/workflows/deploy.yml/badge.svg)
+![example workflow](https://github.com/Okaki030/vacca-note-api/actions/workflows/deploy.yml/badge.svg)
 
 「ワクチン接種体験共有サービス Vacca note」 のAPI
 
