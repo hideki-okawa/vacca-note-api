@@ -1,0 +1,53 @@
+{
+    "capacityProviderStrategy": [
+        {
+            "base": 0,
+            "capacityProvider": "FARGATE",
+            "weight": 1
+        }
+    ],
+    "deploymentConfiguration": {
+        "deploymentCircuitBreaker": {
+            "enable": false,
+            "rollback": false
+        },
+        "maximumPercent": 200,
+        "minimumHealthyPercent": 100
+    },
+    "desiredCount": 1,
+    "enableECSManagedTags": false,
+    "enableExecuteCommand": true,
+    "healthCheckGracePeriodSeconds": 300,
+    "loadBalancers": [
+        {
+            "containerName": "app",
+            "containerPort": 80,
+            "targetGroupArn": "{{ tfstate `data.aws_lb_target_group.this.arn` }}"
+        }
+    ],
+    "networkConfiguration": {
+        "awsvpcConfiguration": {
+            "assignPublicIp": "DISABLED",
+            "securityGroups": [
+                "{{ tfstate `data.aws_security_group.vpc.id` }}",
+                "{{ tfstate `data.aws_security_group.db_app.id` }}"
+            ],
+            "subnets": [
+                "{{ tfstate `data.aws_subnet.private_a.id` }}",
+                "{{ tfstate `data.aws_subnet.private_c.id` }}"
+            ]
+        }
+    },
+    "placementConstraints": [],
+    "placementStrategy": [],
+    "platformFamily": "Linux",
+    "platformVersion": "1.4.0",
+    "schedulingStrategy": "REPLICA",
+    "serviceRegistries": [],
+    "tags": [
+        {
+            "key": "Name",
+            "value": "{{ must_env `SYSTEM_NAME` }}"
+        }
+    ]
+}

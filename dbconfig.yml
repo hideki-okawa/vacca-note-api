@@ -1,0 +1,8 @@
+development:
+  dialect: mysql
+  datasource: ${DB_USER}:${DB_PASSWORD}@tcp(${DB_HOST}:3306)/${DB_NAME}?parseTime=true
+  dir: ./sql/migrations/
+production:
+  dialect: mysql
+  datasource: ${DB_USER}:${DB_PASSWORD}@tcp(${DB_HOST}:3306)/${DB_NAME}?parseTime=true
+  dir: ./sql/migrations/

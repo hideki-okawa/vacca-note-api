@@ -1,0 +1,37 @@
+version: "3"
+services:
+  mysql:
+    container_name: "mysql5"
+    image: mysql:5.7.22
+    environment:
+      MYSQL_ROOT_USER: root
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: vacca_note_db_local
+      TZ: Asia/Tokyo
+    volumes:
+      - "./sql/db_data:/var/lib/mysql"
+    ports:
+      - "3306:3306"
+    networks:
+      - vacca-note
+  server:
+    build: ./dev
+    volumes:
+      - ./:/go/src
+      # - $HOME/.aws:/root/.aws
+    environment:
+      CONFIG_ENV: "local"
+      DB_USER: "root"
+      DB_PASSWORD: "root"
+      DB_HOST: "mysql"
+      DB_NAME: "vacca_note_db_local"
+      TZ: Asia/Tokyo
+    depends_on:
+      - mysql
+    ports:
+      - "80:80"
+    networks:
+      - vacca-note
+networks:
+  vacca-note:
+    external: true
