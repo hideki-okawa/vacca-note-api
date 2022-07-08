@@ -23,12 +23,10 @@
 # リポジトリのClone
 $ git clone https://github.com/Okaki030/vacca-note-server.git
 
-# dbの作成
+# DBの作成
 $ docker-compose build
 $ docker network create vacca-note
 $ docker-compose up -d
-
-# DB作成
 $ docker-compose exec mysql mysql -uroot -proot -e'create database vacca_note_db_local;'
 
 # DBマイグレーション
